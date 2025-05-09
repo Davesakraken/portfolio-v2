@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,36 +8,41 @@ function Navbar() {
     setIsOpen(!isOpen);
   };
 
+  // Active link style function
+  const getLinkClass = ({ isActive }: { isActive: boolean }) => {
+    return isActive
+      ? "bg-gray-900 text-white px-3 py-2 rounded-md font-medium"
+      : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium";
+  };
+
+  // Mobile active link style function
+  const getMobileLinkClass = ({ isActive }: { isActive: boolean }) => {
+    return isActive
+      ? "bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+      : "text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium";
+  };
+
   return (
     <nav className="bg-gray-800 shadow-lg">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          {/* Desktop Menu */}
+        <div className="flex justify-center items-center h-16">
+          {/* Desktop Menu - Centered */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-4">
-              <Link
-                to="/"
-                className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium"
-              >
+            <div className="flex items-center space-x-8">
+              <NavLink to="/" className={getLinkClass} end>
                 Home
-              </Link>
-              <Link
-                to="/projects"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium"
-              >
+              </NavLink>
+              <NavLink to="/projects" className={getLinkClass}>
                 Projects
-              </Link>
-              <Link
-                to="/contact"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium"
-              >
+              </NavLink>
+              <NavLink to="/contact" className={getLinkClass}>
                 Contact
-              </Link>
+              </NavLink>
             </div>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          {/* Mobile menu button - Now centered */}
+          <div className="md:hidden absolute right-4">
             <button
               onClick={toggleMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"
@@ -81,22 +86,16 @@ function Navbar() {
 
       {/* Mobile menu, show/hide based on menu state */}
       <div className={`${isOpen ? "block" : "hidden"} md:hidden`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <Link to="/" className="text-white block px-3 py-2 rounded-md text-base font-medium">
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+          <NavLink to="/" className={getMobileLinkClass} end>
             Home
-          </Link>
-          <Link
-            to="/projects"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
+          </NavLink>
+          <NavLink to="/projects" className={getMobileLinkClass}>
             Projects
-          </Link>
-          <Link
-            to="/contact"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
+          </NavLink>
+          <NavLink to="/contact" className={getMobileLinkClass}>
             Contact
-          </Link>
+          </NavLink>
         </div>
       </div>
     </nav>
