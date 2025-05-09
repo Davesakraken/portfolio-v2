@@ -6,12 +6,14 @@ import HomePage from "./pages/HomePage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ContactPage from "./pages/ContactPage";
 import App from "./App";
+import NotFoundPage from "./pages/NotFoundPage";
 
 // Create router with route definitions
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: "/",
