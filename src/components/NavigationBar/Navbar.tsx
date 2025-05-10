@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import ThemeToggle from "../Darkmode";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,22 +9,22 @@ function Navbar() {
     setIsOpen(!isOpen);
   };
 
-  // Active link style function
+  // Active link style function with dark mode variants
   const getLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive
-      ? "bg-gray-900 text-white px-3 py-2 rounded-md font-medium"
-      : "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium";
+      ? "bg-gray-300 dark:bg-gray-700 text-white px-3 py-2 rounded-md font-medium"
+      : " text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white px-3 py-2 rounded-md font-medium";
   };
 
-  // Mobile active link style function
+  // Mobile active link style function with dark mode variants
   const getMobileLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive
-      ? "bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-      : "text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium";
+      ? "bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium"
+      : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white block px-3 py-2 rounded-md text-base font-medium";
   };
 
   return (
-    <nav className="bg-gray-800 shadow-lg">
+    <nav className="bg-gray-200 dark:bg-gray-800 shadow-lg">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-center items-center h-16">
           {/* Desktop Menu - Centered */}
@@ -38,6 +39,7 @@ function Navbar() {
               <NavLink to="/contact" className={getLinkClass}>
                 Contact
               </NavLink>
+              <ThemeToggle />
             </div>
           </div>
 
@@ -45,7 +47,7 @@ function Navbar() {
           <div className="md:hidden absolute right-4">
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"
               aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>

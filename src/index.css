@@ -1,19 +1,46 @@
 @import "tailwindcss";
 
+/* Define dark mode variant using the Tailwind v4 syntax */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
+  /* Base styles that apply to both light and dark modes */
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  /* Dark theme as default */
-  color-scheme: dark light;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  --text-primary: #213547;
+  --text-secondary: #4b5563;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --border-color: #e5e7eb;
+  --btn-bg: #f9f9f9;
+  --btn-hover-border: #4f46e5;
+  --link-hover: #4f46e5;
+}
+
+.dark {
+  --text-primary: rgba(255, 255, 255, 0.87);
+  --text-secondary: #9ca3af;
+  --bg-primary: #242424;
+  --bg-secondary: #1e1e1e;
+  --border-color: #374151;
+  --btn-bg: #1a1a1a;
+  --btn-hover-border: #646cff;
+  --link-hover: #818cf8;
+}
+
+body {
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  margin: 0;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 h1 {
@@ -24,25 +51,27 @@ h1 {
 a {
   font-weight: 500;
   text-decoration: inherit;
+  color: var(--text-primary);
 }
 
 a:hover {
+  color: var(--link-hover);
 }
 
-button {
+button:not(.theme-toggle-button) {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--btn-bg);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s, background-color 0.25s;
 }
 
-button:hover {
-  border-color: #646cff;
+button:not(.theme-toggle-button):hover {
+  border-color: var(--btn-hover-border);
 }
 
 button:focus,
@@ -50,17 +79,21 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
+/* Theme toggle specific styles */
+.theme-toggle-button {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  color: var(--text-primary);
+}
 
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
-  }
+.theme-toggle-button svg {
+  width: 24px;
+  height: 24px;
 }
