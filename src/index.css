@@ -26,14 +26,14 @@
 }
 
 .dark {
-  --text-primary: rgba(255, 255, 255, 0.87);
-  --text-secondary: #9ca3af;
-  --bg-primary: #242424;
-  --bg-secondary: #1e1e1e;
-  --border-color: #374151;
-  --btn-bg: #1a1a1a;
-  --btn-hover-border: #646cff;
-  --link-hover: #818cf8;
+  --text-primary: #fef7ed; /* Warm white with orange tint */
+  --text-secondary: #fed7aa; /* Light orange for secondary text */
+  --bg-primary: #1f1f1f; /* Neutral dark gray */
+  --bg-secondary: #2a2a2a; /* Slightly lighter gray */
+  --border-color: #404040; /* Medium gray for borders */
+  --btn-bg: #2a2a2a; /* Same as secondary bg */
+  --btn-hover-border: #e67e1e; /* Bright orange (like Tango 500) */
+  --link-hover: #f97316; /* Vibrant orange (like Tango 400) */
 }
 
 body {

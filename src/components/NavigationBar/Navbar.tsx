@@ -24,7 +24,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-gray-200 dark:bg-gray-800 shadow-lg">
+    <nav className=" shadow-lg">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-center items-center h-16">
           {/* Desktop Menu - Centered */}

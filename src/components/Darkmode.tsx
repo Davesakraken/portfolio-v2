@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
 
 const ThemeToggle = () => {
-  // Possible theme values: 'light', 'dark', 'system'
   const [theme, setTheme] = useState(() => {
-    // On component mount, read from localStorage or default to 'system'
     if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") || "system";
+      return localStorage.getItem("theme") || "dark";
     }
-    return "system";
+    return "dark";
   });
 
-  // Check if system prefers dark mode
   const systemPrefersDark = () => {
     if (typeof window !== "undefined") {
       return window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -18,19 +15,14 @@ const ThemeToggle = () => {
     return false;
   };
 
-  // Update the DOM based on the selected theme
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // If theme is system, check system preference
     if (theme === "system") {
-      // Remove explicit theme from localStorage
       localStorage.removeItem("theme");
 
-      // Apply dark class based on system preference
       document.documentElement.classList.toggle("dark", systemPrefersDark());
 
-      // Listen for system preference changes
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
       const handleChange = () => {
         document.documentElement.classList.toggle("dark", mediaQuery.matches);
@@ -39,19 +31,15 @@ const ThemeToggle = () => {
       mediaQuery.addEventListener("change", handleChange);
       return () => mediaQuery.removeEventListener("change", handleChange);
     } else {
-      // For explicit theme choices (light/dark)
       localStorage.theme = theme;
       document.documentElement.classList.toggle("dark", theme === "dark");
     }
   }, [theme]);
 
   const toggleTheme = () => {
-    // Cycle through the themes: light -> dark -> system -> light
-    if (theme === "light") setTheme("dark");
-    else if (theme === "dark") setTheme("light");
+    setTheme(theme === "light" ? "dark" : "light");
   };
 
-  // Determine the current effective theme (accounting for system preference)
   const effectiveTheme = theme === "system" ? (systemPrefersDark() ? "dark" : "light") : theme;
 
   return (
