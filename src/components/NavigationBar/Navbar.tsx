@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import ThemeToggle from "../Darkmode";
+import ThemeToggle from "@/components/Darkmode";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
