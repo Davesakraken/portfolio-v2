@@ -14,24 +14,42 @@ function HomePage() {
       ease: "power3.out",
     });
 
-    gsap.from(subtitle.current, {
-      duration: 2,
-      delay: 0.5,
-      opacity: 0,
-      y: 50,
-      ease: "power3.out",
-    });
+    // Split text into spans for each character
+    if (subtitle.current) {
+      const text = subtitle.current.textContent;
+      subtitle.current.innerHTML = text!
+        .split("")
+        .map((char) => `<span class="inline-block">${char}</span>`)
+        .join("");
+
+      // Animate each character
+      gsap.from(subtitle.current.children, {
+        duration: 1,
+        delay: 0.8,
+        opacity: 0,
+        y: 30,
+        rotation: 180,
+        ease: "back.out(1.7)",
+        stagger: 0.1,
+      });
+    }
   }, []);
 
   return (
     <>
       <div className="flex flex-col items-center mt-30">
-        <h1 ref={title} className="text-[5rem] font-bold">
-          David Bell
-        </h1>
-        <h2 ref={subtitle} className="text-2xl font-semibold mb-6">
-          デビッド
-        </h2>
+        <div className="relative top-0 right-0">
+          <h1 ref={title} className="text-[5rem] font-bold">
+            David Bell
+          </h1>
+          <h2
+            ref={subtitle}
+            className="absolute top-10 right-[-20px] text-2xl writing-mode-vertical-rl font-bold"
+            style={{ writingMode: "vertical-rl", textOrientation: "upright" }}
+          >
+            デビッド
+          </h2>
+        </div>
       </div>
     </>
   );
