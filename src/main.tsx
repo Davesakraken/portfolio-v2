@@ -7,6 +7,7 @@ import ProjectsPage from "./pages/ProjectsPage";
 import ContactPage from "./pages/ContactPage";
 import App from "./App";
 import NotFoundPage from "./pages/NotFoundPage";
+import "@fontsource-variable/jost";
 
 // Create router with route definitions
 const router = createBrowserRouter([
