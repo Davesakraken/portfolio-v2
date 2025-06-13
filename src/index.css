@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-sm: 35rem;
+  --breakpoint-md: 55rem;
+  --breakpoint-lg: 64rem;
+}
+
 /* Define dark mode variant using the Tailwind v4 syntax */
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -45,7 +51,6 @@ body {
 
 h1 {
   font-family: "Jost Variable", sans-serif;
-  font-size: 10em;
   line-height: 1.2;
 }
 

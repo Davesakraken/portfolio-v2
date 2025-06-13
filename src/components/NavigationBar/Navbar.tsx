@@ -24,11 +24,11 @@ function Navbar() {
   };
 
   return (
-    <nav className=" shadow-lg">
+    <nav className="shadow-lg">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-center items-center h-16">
           {/* Desktop Menu - Centered */}
-          <div className="hidden md:block">
+          <div className="hidden sm:block">
             <div className="flex items-center space-x-8">
               <NavLink to="/" className={getLinkClass} end>
                 Home
@@ -44,7 +44,7 @@ function Navbar() {
           </div>
 
           {/* Mobile menu button - Now centered */}
-          <div className="md:hidden absolute right-4">
+          <div className="sm:hidden absolute right-4">
             <button
               onClick={toggleMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"
