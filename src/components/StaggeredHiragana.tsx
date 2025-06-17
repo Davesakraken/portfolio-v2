@@ -33,7 +33,7 @@ export default function StaggeredHiragana({ children, ...props }: StaggeredHirag
       ref={subtitle}
       style={{ writingMode: "vertical-rl", textOrientation: "upright" }}
       {...props}
-      className={`${props.className} writing-mode-vertical-rl font-bold`}
+      className={`${props.className} absolute writing-mode-vertical-rl font-bold`}
     >
       {children.split("").map((char, index) => (
         <span key={index} className="inline-block">

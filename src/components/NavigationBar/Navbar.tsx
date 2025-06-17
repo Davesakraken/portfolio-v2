@@ -24,65 +24,63 @@ function Navbar() {
   };
 
   return (
-    <nav className="shadow-lg">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex justify-center items-center h-16">
-          {/* Desktop Menu - Centered */}
-          <div className="hidden sm:block">
-            <div className="flex items-center space-x-8">
-              <NavLink to="/" className={getLinkClass} end>
-                Home
-              </NavLink>
-              <NavLink to="/projects" className={getLinkClass}>
-                Projects
-              </NavLink>
-              <NavLink to="/contact" className={getLinkClass}>
-                Contact
-              </NavLink>
-              <ThemeToggle />
-            </div>
+    <nav className="shadow-lg fixed w-full top-0 z-50">
+      <div className="flex justify-center items-center h-16">
+        {/* Desktop Menu - Centered */}
+        <div className="hidden sm:block">
+          <div className="flex items-center space-x-8">
+            <NavLink to="/" className={getLinkClass} end>
+              Home
+            </NavLink>
+            <NavLink to="/projects" className={getLinkClass}>
+              Projects
+            </NavLink>
+            <NavLink to="/contact" className={getLinkClass}>
+              Contact
+            </NavLink>
+            <ThemeToggle />
           </div>
+        </div>
 
-          {/* Mobile menu button - Now centered */}
-          <div className="sm:hidden absolute right-4">
-            <button
-              onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"
-              aria-expanded="false"
+        {/* Mobile menu button */}
+        <div className="sm:hidden absolute right-4">
+          <button
+            onClick={toggleMenu}
+            className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"
+            aria-expanded="false"
+          >
+            <span className="sr-only">Open main menu</span>
+            {/* Icon when menu is closed */}
+            <svg
+              className={`${isOpen ? "hidden" : "block"} h-6 w-6`}
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              <span className="sr-only">Open main menu</span>
-              {/* Icon when menu is closed */}
-              <svg
-                className={`${isOpen ? "hidden" : "block"} h-6 w-6`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-              {/* Icon when menu is open */}
-              <svg
-                className={`${isOpen ? "block" : "hidden"} h-6 w-6`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+            {/* Icon when menu is open */}
+            <svg
+              className={`${isOpen ? "block" : "hidden"} h-6 w-6`}
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
         </div>
       </div>
 

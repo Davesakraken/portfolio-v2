@@ -18,12 +18,12 @@ function HomePage() {
 
   return (
     <>
-      <section className="flex flex-col items-center h-[50svh] outline-1 outline-red-300">
-        <div className="relative">
-          <h1 ref={title} className="lg:text-[13rem] md:text-9xl sm:text-8xl text-5xl font-bold">
+      <section className="flex flex-col items-center h-[97.6dvh] justify-center">
+        <div className="relative mb-40">
+          <h1 ref={title} className="lg:text-[10rem] md:text-9xl sm:text-8xl text-5xl font-bold">
             <span className="sm:whitespace-nowrap">
               David Bell
-              <StaggeredHiragana className="lg:text-4xl lg:right-[-25px] lg:top-7 md:text-xl md:right-[-19px] sm:text-[14px] sm:right-[-12px] sm:top-3 sm: text-[11px] right-[-15px] top-1 md:top-4 absolute ml-1 md:ml-2 lg:ml-3 inline-block">
+              <StaggeredHiragana className="lg:text-2xl lg:right-[-25px] lg:top-7 md:text-xl md:right-[-19px] sm:text-[14px] sm:right-[-12px] sm:top-3 text-[11px] right-[-15px] top-1 md:top-4 ml-1 md:ml-2 lg:ml-3">
                 デビッド
               </StaggeredHiragana>
             </span>
