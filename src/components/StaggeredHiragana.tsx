@@ -29,7 +29,7 @@ export default function StaggeredHiragana({ children, ...props }: StaggeredHirag
     }
   }, []);
   return (
-    <h2
+    <div
       ref={subtitle}
       style={{ writingMode: "vertical-rl", textOrientation: "upright" }}
       {...props}
@@ -40,6 +40,6 @@ export default function StaggeredHiragana({ children, ...props }: StaggeredHirag
           {char}
         </span>
       ))}
-    </h2>
+    </div>
   );
 }
