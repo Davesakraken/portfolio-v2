@@ -71,9 +71,9 @@ const GlassContainer: React.FC<GlassContainerProps> = ({
     .join(" ");
 
   return (
-    <div className={combinedClassName} {...props}>
-      <p>{children}</p>
-    </div>
+    <section className={combinedClassName} {...props}>
+      {children}
+    </section>
   );
 };
 

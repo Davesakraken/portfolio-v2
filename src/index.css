@@ -28,18 +28,16 @@
   --border-color: #e5e7eb;
   --btn-bg: #f9f9f9;
   --btn-hover-border: #4f46e5;
-  --link-hover: #4f46e5;
 }
 
 .dark {
-  --text-primary: #fef7ed; /* Warm white with orange tint */
-  --text-secondary: #fed7aa; /* Light orange for secondary text */
-  --bg-primary: #1f1f1f; /* Neutral dark gray */
-  --bg-secondary: #2a2a2a; /* Slightly lighter gray */
-  --border-color: #404040; /* Medium gray for borders */
-  --btn-bg: #2a2a2a; /* Same as secondary bg */
-  --btn-hover-border: #e67e1e; /* Bright orange (like Tango 500) */
-  --link-hover: #f97316; /* Vibrant orange (like Tango 400) */
+  --text-primary: #fef7ed;
+  --text-secondary: #fed7aa;
+  --bg-primary: #1f1f1f;
+  --bg-secondary: #2a2a2a;
+  --border-color: #404040;
+  --btn-bg: #2a2a2a;
+  --btn-hover-border: #ffe5e5;
 }
 
 body {
@@ -68,10 +66,6 @@ a {
   font-weight: 500;
   text-decoration: inherit;
   color: var(--text-primary);
-}
-
-a:hover {
-  color: var(--link-hover);
 }
 
 button:not(.theme-toggle-button) {
