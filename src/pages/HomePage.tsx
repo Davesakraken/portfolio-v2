@@ -1,21 +1,17 @@
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import StaggeredHiragana from "@/components/StaggeredHiragana";
 import GlassContainer from "@/components/common/GlassContainer";
-import {
-  CssIcon,
-  JavaScriptIcon,
-  MantineIcon,
-  NextIcon,
-  ReactIcon,
-  TailwindIcon,
-} from "@/components/icons";
 import { TechStack } from "@/components/Containers/TechStack";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function HomePage() {
   const title = useRef<HTMLHeadingElement>(null);
   const icons = useRef<HTMLDivElement>(null);
+  const container = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     gsap.from(title.current, {
@@ -26,39 +22,23 @@ function HomePage() {
     });
 
     if (icons.current) {
-      gsap.set(icons.current.children, { opacity: 0, scale: 0.8 });
-    }
-  }, []);
+      gsap.set(icons.current.children, { opacity: 0, scale: 0.8, y: 50 });
 
-  const handleMouseEnter = () => {
-    if (!icons.current) return;
-    gsap.killTweensOf(icons.current.children);
-    gsap.fromTo(
-      icons.current.children,
-      { opacity: 0, y: 20, scale: 0.8 },
-      {
-        duration: 0.5,
+      gsap.to(icons.current.children, {
+        duration: 0.8,
         opacity: 1,
-        y: -25,
+        y: -50,
         scale: 1,
         ease: "back.out(1.7)",
         stagger: 0.1,
-      }
-    );
-  };
-
-  const handleMouseLeave = () => {
-    if (!icons.current) return;
-    gsap.killTweensOf(icons.current.children);
-    gsap.to(icons.current.children, {
-      duration: 0.2,
-      opacity: 0,
-      y: -20,
-      scale: 0.8,
-      ease: "power2.in",
-      stagger: 0.05,
-    });
-  };
+        scrollTrigger: {
+          trigger: container.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    }
+  }, []);
 
   return (
     <>
@@ -81,13 +61,12 @@ function HomePage() {
       <section className="mb-40">
         <div className="flex mx-10">
           <GlassContainer
+            ref={container}
             rounded="lg"
             className="flex flex-col p-5 items-left relative"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
           >
             <TechStack ref={icons} />
-            <h3 className="text-2xl font-semibold mb-4">My Stack</h3>
+            <h1 className="text-4xl font-semibold mb-4">My Stack</h1>
             <p className="text-md">
               I specialize in building modern web applications mainly using React, TypeScript, and
               Tailwind CSS. My focus is on creating responsive, accessible, and performant user
