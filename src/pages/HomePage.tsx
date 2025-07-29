@@ -24,6 +24,10 @@ function HomePage() {
       y: 50,
       ease: "power3.out",
     });
+
+    if (icons.current) {
+      gsap.set(icons.current.children, { opacity: 0, scale: 0.8 });
+    }
   }, []);
 
   const handleMouseEnter = () => {
