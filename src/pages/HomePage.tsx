@@ -10,7 +10,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 function HomePage() {
   const title = useRef<HTMLHeadingElement>(null);
-  const icons = useRef<HTMLDivElement>(null);
   const container = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
@@ -20,24 +19,6 @@ function HomePage() {
       y: 50,
       ease: "power3.out",
     });
-
-    if (icons.current) {
-      gsap.set(icons.current.children, { opacity: 0, scale: 0.8, y: 50 });
-
-      gsap.to(icons.current.children, {
-        duration: 0.8,
-        opacity: 1,
-        y: -50,
-        scale: 1,
-        ease: "back.out(1.7)",
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: container.current,
-          start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-      });
-    }
   }, []);
 
   return (
@@ -65,7 +46,7 @@ function HomePage() {
             rounded="lg"
             className="flex flex-col p-5 items-left relative"
           >
-            <TechStack ref={icons} />
+            <TechStack trigger={container} />
             <h1 className="text-4xl font-semibold mb-4">My Stack</h1>
             <p className="text-md">
               I specialize in building modern web applications mainly using React, TypeScript, and
