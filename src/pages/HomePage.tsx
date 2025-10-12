@@ -23,8 +23,8 @@ function HomePage() {
 
   return (
     <>
-      <section className="flex flex-col h-[97.6dvh] justify-center items-center text-center">
-        <div className="relative mb-36">
+      <section className="flex flex-col min-h-screen sm:h-[97.6dvh] justify-center items-center text-center">
+        <div className="relative sm:mb-36 mb-10">
           <h1 ref={title} className="lg:text-[11rem] md:text-9xl sm:text-8xl text-5xl font-bold">
             <span className="sm:whitespace-nowrap">
               David Bell
@@ -37,15 +37,12 @@ function HomePage() {
             Frontend Developer
           </h2>
         </div>
+        <TechStack className="flex sm:hidden" />
       </section>
 
-      <section className="mb-40">
+      <section className="mb-40 hidden md:flex">
         <div className="flex mx-10">
-          <GlassContainer
-            ref={container}
-            rounded="lg"
-            className="flex flex-col p-5 items-left relative"
-          >
+          <GlassContainer ref={container} rounded="lg" className="flex-col p-5 items-left relative">
             <TechStack trigger={container} />
             <h1 className="text-4xl font-semibold mb-4">My Stack</h1>
             <p className="text-md">
