@@ -43,7 +43,8 @@ function Navbar() {
         </div>
 
         {/* Mobile menu button */}
-        <div className="sm:hidden absolute right-4">
+        <div className="sm:hidden flex items-center justify-between w-full px-4">
+          <ThemeToggle />
           <button
             onClick={toggleMenu}
             className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"
