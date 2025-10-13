@@ -7,7 +7,7 @@ function App() {
     <div className="app">
       <Navbar />
       <BlurBubbles count={10} />
-      <main className="max-w-6xl mx-auto mt-6 px-4">
+      <main className="max-w-6xl mx-auto px-4">
         <Outlet />
       </main>
     </div>

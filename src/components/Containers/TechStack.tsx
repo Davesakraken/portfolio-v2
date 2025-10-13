@@ -20,9 +20,15 @@ interface TechStackProps {
   trigger?: React.RefObject<HTMLDivElement | null>;
   className?: string;
   animation?: AnimationVariant;
+  iconSize?: string;
 }
 
-export const TechStack = ({ trigger, className, animation = "fade-scale" }: TechStackProps) => {
+export const TechStack = ({
+  trigger,
+  className,
+  animation = "fade-scale",
+  iconSize = "w-6 sm:h-6",
+}: TechStackProps) => {
   const iconsRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
@@ -75,13 +81,13 @@ export const TechStack = ({ trigger, className, animation = "fade-scale" }: Tech
 
   return (
     <div ref={iconsRef} className={`flex flex-wrap gap-2 ${className}`}>
-      <JavaScriptIcon className="sm:w-12 sm:h-12 mb-4" />
-      <TypeScriptIcon className="sm:w-12 sm:h-12 mb-4" />
-      <CssIcon className="sm:w-12 sm:h-12 mb-4" />
-      <ReactIcon className="sm:w-12 sm:h-12 mb-4" />
-      <TailwindIcon className="sm:w-12 sm:h-12 mb-4" />
-      <NextIcon className="sm:w-12 sm:h-12 mb-4" />
-      <MantineIcon className="sm:w-12 sm:h-12 mb-4" />
+      <JavaScriptIcon className={iconSize} />
+      <TypeScriptIcon className={iconSize} />
+      <CssIcon className={iconSize} />
+      <ReactIcon className={iconSize} />
+      <TailwindIcon className={iconSize} />
+      <NextIcon className={iconSize} />
+      <MantineIcon className={iconSize} />
     </div>
   );
 };
