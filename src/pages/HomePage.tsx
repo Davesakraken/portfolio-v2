@@ -3,14 +3,11 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import StaggeredHiragana from "@/components/StaggeredHiragana";
-import GlassContainer from "@/components/common/GlassContainer";
-import { TechStack } from "@/components/Containers/TechStack";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function HomePage() {
   const title = useRef<HTMLHeadingElement>(null);
-  const container = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     gsap.from(title.current, {
@@ -23,7 +20,7 @@ function HomePage() {
 
   return (
     <>
-      <section className="flex flex-col min-h-screen sm:h-[97.6dvh] justify-center items-center text-center sm:mt-6">
+      <section className="flex flex-col min-h-[97dvh] overflow-hidden justify-center items-center text-center sm:mt-6">
         <div className="relative sm:mb-36 mb-10">
           <h1 ref={title} className="lg:text-[11rem] md:text-9xl sm:text-8xl text-5xl font-bold">
             <span className="sm:whitespace-nowrap">
@@ -37,25 +34,10 @@ function HomePage() {
             Frontend Developer
           </h2>
         </div>
-      </section>
-
-      <section className="mb-40 flex justify-center">
-        <GlassContainer
-          ref={container}
-          rounded="lg"
-          className="w-2xl flex-col p-5 items-center relative"
-        >
-          <div className="flex items-center justify-between mb-3">
-            <h1 className="text-4xl font-semibold ">My Stack</h1>
-            <TechStack trigger={container} className="flex" iconSize="sm:w-9.5 sm:h-9.5" />
-          </div>
-          <p className="text-md text-justify">
-            I specialize in building modern web applications mainly using React, TypeScript, and
-            Tailwind CSS. My focus is on creating responsive, accessible, and performant user
-            interfaces that enhance the user experience. I also have experience with Next.js for
-            server-side rendering and static site generation.
-          </p>
-        </GlassContainer>
+        <img
+          className="absolute left-[-80px] bottom-[-10%] scale-80 -z-40"
+          src="/anime-character.png"
+        />
       </section>
     </>
   );
