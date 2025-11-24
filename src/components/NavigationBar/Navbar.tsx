@@ -12,15 +12,15 @@ function Navbar() {
   // Active link style function with dark mode variants - pill shaped
   const getLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive
-      ? "bg-slate-700 dark:bg-slate-100 text-white dark:text-slate-900 px-4 sm:px-6 py-2.5 rounded-full font-medium transition-all duration-300 shadow-lg shadow-slate-700/20 dark:shadow-slate-100/20"
-      : "hover:bg-slate-100 dark:hover:bg-slate-800 px-4 sm:px-6 py-2.5 rounded-full font-medium transition-all duration-300";
+      ? "bg-slate-700 dark:bg-slate-100 text-white dark:text-slate-900 px-4 sm:px-6 py-2.5 rounded-full font-medium transition-[background-color,box-shadow] duration-300 shadow-lg shadow-slate-700/20 dark:shadow-slate-100/20"
+      : "hover:bg-slate-100 dark:hover:bg-slate-800 px-4 sm:px-6 py-2.5 rounded-full font-medium transition-[background-color] duration-300";
   };
 
   // Mobile active link style function with dark mode variants - pill shaped
   const getMobileLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive
-      ? "bg-slate-700 dark:bg-slate-100 text-white dark:text-slate-900 block px-4 sm:px-6 py-2.5 rounded-full text-base font-medium transition-all duration-300 shadow-lg shadow-slate-700/20 dark:shadow-slate-100/20"
-      : "hover:bg-slate-100 dark:hover:bg-slate-800 block px-4 sm:px-6 py-2.5 rounded-full text-base font-medium transition-all duration-300";
+      ? "bg-slate-700 dark:bg-slate-100 text-white dark:text-slate-900 block px-4 sm:px-6 py-2.5 rounded-full text-base font-medium transition-[background-color,box-shadow] duration-300 shadow-lg shadow-slate-700/20 dark:shadow-slate-100/20"
+      : "hover:bg-slate-100 dark:hover:bg-slate-800 block px-4 sm:px-6 py-2.5 rounded-full text-base font-medium transition-[background-color] duration-300";
   };
 
   return (
