@@ -45,7 +45,7 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="flex items-center justify-center w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+      className="cursor-pointer theme-toggle-button flex items-center justify-center w-10 h-10 rounded-full bg-slate-700 dark:bg-slate-800 text-white dark:text-slate-100 hover:bg-slate-600 dark:hover:bg-slate-700 transition-all duration-300 focus:outline-none"
       title={`Current theme: ${theme} (click to toggle)`}
     >
       {/* Sun icon for light theme */}

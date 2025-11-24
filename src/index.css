@@ -21,23 +21,27 @@
 }
 
 :root {
-  --text-primary: #213547;
-  --text-secondary: #4b5563;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
   --bg-primary: #ffffff;
-  --bg-secondary: #f3f4f6;
-  --border-color: #e5e7eb;
-  --btn-bg: #f9f9f9;
-  --btn-hover-border: #4f46e5;
+  --bg-secondary: #f8fafc;
+  --border-color: #e2e8f0;
+  --btn-bg: #f8fafc;
+  --btn-hover-border: #64748b;
+  --accent-primary: #1e293b;
+  --accent-secondary: #334155;
 }
 
 .dark {
-  --text-primary: #fef7ed;
-  --text-secondary: #fed7aa;
-  --bg-primary: #1f1f1f;
-  --bg-secondary: #2a2a2a;
-  --border-color: #404040;
-  --btn-bg: #2a2a2a;
-  --btn-hover-border: #ffe5e5;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --border-color: #334155;
+  --btn-bg: #1e293b;
+  --btn-hover-border: #94a3b8;
+  --accent-primary: #e2e8f0;
+  --accent-secondary: #cbd5e1;
 }
 
 body {
@@ -65,6 +69,10 @@ h2 {
 a {
   font-weight: 500;
   text-decoration: inherit;
+}
+
+/* Only apply color to non-nav links */
+a:not(nav a) {
   color: var(--text-primary);
 }
 
@@ -84,23 +92,14 @@ button:not(.theme-toggle-button):hover {
   border-color: var(--btn-hover-border);
 }
 
-button:focus,
-button:focus-visible {
+button:not(.theme-toggle-button):focus,
+button:not(.theme-toggle-button):focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
 /* Theme toggle specific styles */
 .theme-toggle-button {
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  background-color: transparent;
-  color: var(--text-primary);
+  /* Let Tailwind handle sizing, colors, and border-radius */
 }
 
 .theme-toggle-button svg {

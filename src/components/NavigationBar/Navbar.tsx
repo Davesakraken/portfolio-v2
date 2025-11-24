@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import ThemeToggle from "@/components/Darkmode";
+import ThemeToggle from "@/components/ThemeToggle";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,20 +12,20 @@ function Navbar() {
   // Active link style function with dark mode variants - pill shaped
   const getLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive
-      ? "bg-[#213547] dark:bg-[#fed7aa] text-white dark:!text-[#1f1f1f] px-4 sm:px-6 py-2.5 rounded-full font-medium transition-all duration-300 shadow-md"
-      : "hover:bg-gray-200 dark:hover:bg-[#2a2a2a] px-4 sm:px-6 py-2.5 rounded-full font-medium transition-all duration-300";
+      ? "bg-slate-700 dark:bg-slate-100 text-white dark:text-slate-900 px-4 sm:px-6 py-2.5 rounded-full font-medium transition-all duration-300 shadow-lg shadow-slate-700/20 dark:shadow-slate-100/20"
+      : "hover:bg-slate-100 dark:hover:bg-slate-800 px-4 sm:px-6 py-2.5 rounded-full font-medium transition-all duration-300";
   };
 
   // Mobile active link style function with dark mode variants - pill shaped
   const getMobileLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive
-      ? "bg-[#213547] dark:bg-[#fed7aa] text-white dark:!text-[#1f1f1f] block px-4 sm:px-6 py-2.5 rounded-full text-base font-medium transition-all duration-300 shadow-md"
-      : "hover:bg-gray-200 dark:hover:bg-[#2a2a2a] block px-4 sm:px-6 py-2.5 rounded-full text-base font-medium transition-all duration-300";
+      ? "bg-slate-700 dark:bg-slate-100 text-white dark:text-slate-900 block px-4 sm:px-6 py-2.5 rounded-full text-base font-medium transition-all duration-300 shadow-lg shadow-slate-700/20 dark:shadow-slate-100/20"
+      : "hover:bg-slate-100 dark:hover:bg-slate-800 block px-4 sm:px-6 py-2.5 rounded-full text-base font-medium transition-all duration-300";
   };
 
   return (
     <nav className="fixed top-0 left-1/2 -translate-x-1/2 z-50 mt-4 rounded-full px-4 sm:px-0 w-[calc(100%-2rem)] sm:w-auto max-w-full">
-      <div className="bg-white/80 dark:bg-[#1f1f1f]/80 backdrop-blur-md shadow-lg rounded-full px-4 sm:px-6 py-2">
+      <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 shadow-xl shadow-slate-900/10 dark:shadow-slate-950/30 rounded-full px-4 sm:px-6 py-2">
         <div className="flex justify-center items-center h-12">
           {/* Desktop Menu - Centered */}
           <div className="hidden sm:block">
@@ -48,7 +48,7 @@ function Navbar() {
             <ThemeToggle />
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-full text-[#4b5563] dark:text-[#fed7aa] hover:text-[#213547] dark:hover:text-[#fef7ed] hover:bg-gray-200 dark:hover:bg-[#2a2a2a] focus:outline-none transition-all duration-300"
+              className="inline-flex items-center justify-center p-2 rounded-full text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none transition-all duration-300"
               aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>
@@ -90,7 +90,7 @@ function Navbar() {
       {/* Mobile menu, show/hide based on menu state */}
       {isOpen && (
         <div className="md:hidden mt-2 px-4 sm:px-0">
-          <div className="bg-white/80 dark:bg-[#1f1f1f]/80 backdrop-blur-md shadow-lg rounded-3xl px-4 py-3 w-full">
+          <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 shadow-xl shadow-slate-900/10 dark:shadow-slate-950/30 rounded-3xl px-4 py-3 w-full">
             <div className="space-y-2 text-center">
               <NavLink to="/" className={getMobileLinkClass} end onClick={() => setIsOpen(false)}>
                 Home
