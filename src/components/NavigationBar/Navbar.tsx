@@ -12,24 +12,24 @@ function Navbar() {
   // Active link style function with dark mode variants - pill shaped
   const getLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive
-      ? "bg-[#213547] dark:bg-[#fed7aa] text-white dark:!text-[#1f1f1f] px-6 py-2.5 rounded-full font-medium transition-all duration-300 shadow-md"
-      : "hover:bg-gray-200 dark:hover:bg-[#2a2a2a] px-6 py-2.5 rounded-full font-medium transition-all duration-300";
+      ? "bg-[#213547] dark:bg-[#fed7aa] text-white dark:!text-[#1f1f1f] px-4 sm:px-6 py-2.5 rounded-full font-medium transition-all duration-300 shadow-md"
+      : "hover:bg-gray-200 dark:hover:bg-[#2a2a2a] px-4 sm:px-6 py-2.5 rounded-full font-medium transition-all duration-300";
   };
 
   // Mobile active link style function with dark mode variants - pill shaped
   const getMobileLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive
-      ? "bg-[#213547] dark:bg-[#fed7aa] text-white dark:!text-[#1f1f1f] block px-6 py-2.5 rounded-full text-base font-medium transition-all duration-300 shadow-md"
-      : "hover:bg-gray-200 dark:hover:bg-[#2a2a2a] block px-6 py-2.5 rounded-full text-base font-medium transition-all duration-300";
+      ? "bg-[#213547] dark:bg-[#fed7aa] text-white dark:!text-[#1f1f1f] block px-4 sm:px-6 py-2.5 rounded-full text-base font-medium transition-all duration-300 shadow-md"
+      : "hover:bg-gray-200 dark:hover:bg-[#2a2a2a] block px-4 sm:px-6 py-2.5 rounded-full text-base font-medium transition-all duration-300";
   };
 
   return (
-    <nav className="fixed top-0 left-1/2 -translate-x-1/2 z-50 mt-4 rounded-full">
-      <div className="bg-white/80 dark:bg-[#1f1f1f]/80 backdrop-blur-md shadow-lg rounded-full px-6 py-2">
+    <nav className="fixed top-0 left-1/2 -translate-x-1/2 z-50 mt-4 rounded-full px-4 sm:px-0 w-[calc(100%-2rem)] sm:w-auto max-w-full">
+      <div className="bg-white/80 dark:bg-[#1f1f1f]/80 backdrop-blur-md shadow-lg rounded-full px-4 sm:px-6 py-2">
         <div className="flex justify-center items-center h-12">
           {/* Desktop Menu - Centered */}
           <div className="hidden sm:block">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1 sm:space-x-2">
               <NavLink to="/" className={getLinkClass} end>
                 Home
               </NavLink>
@@ -44,7 +44,7 @@ function Navbar() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="sm:hidden flex items-center justify-between min-w-[280px]">
+          <div className="sm:hidden flex items-center justify-between w-full">
             <ThemeToggle />
             <button
               onClick={toggleMenu}
@@ -89,8 +89,8 @@ function Navbar() {
 
       {/* Mobile menu, show/hide based on menu state */}
       {isOpen && (
-        <div className="md:hidden mt-2">
-          <div className="bg-white/80 dark:bg-[#1f1f1f]/80 backdrop-blur-md shadow-lg rounded-3xl px-4 py-3 min-w-[280px]">
+        <div className="md:hidden mt-2 px-4 sm:px-0">
+          <div className="bg-white/80 dark:bg-[#1f1f1f]/80 backdrop-blur-md shadow-lg rounded-3xl px-4 py-3 w-full">
             <div className="space-y-2 text-center">
               <NavLink to="/" className={getMobileLinkClass} end onClick={() => setIsOpen(false)}>
                 Home
