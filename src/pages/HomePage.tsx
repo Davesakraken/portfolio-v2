@@ -20,7 +20,7 @@ function HomePage() {
 
   return (
     <>
-      <section className="flex flex-col min-h-[97dvh] overflow-hidden justify-center items-center text-center sm:mt-6">
+      <section className="flex flex-col min-h-[97dvh] justify-center items-center text-center sm:mt-6">
         <div className="relative sm:mb-36 mb-10">
           <h1 ref={title} className="lg:text-[11rem] md:text-9xl sm:text-8xl text-5xl font-bold">
             <span className="sm:whitespace-nowrap">
@@ -35,7 +35,7 @@ function HomePage() {
           </h2>
         </div>
         <img
-          className="absolute left-[-80px] bottom-[-10%] scale-80 -z-40"
+          className="fixed left-0 bottom-0 scale-80 origin-bottom-left -z-40"
           src="/anime-character.png"
         />
       </section>
