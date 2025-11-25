@@ -4,7 +4,7 @@ import BlurBubbles from "./components/common/BlurBubbles";
 
 function App() {
   return (
-    <div className="app">
+    <div>
       <Navbar />
       <BlurBubbles count={10} />
       <main className="max-w-6xl mx-auto px-4">

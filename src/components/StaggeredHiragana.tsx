@@ -13,7 +13,6 @@ export default function StaggeredHiragana({ children, ...props }: StaggeredHirag
     if (subtitle.current) {
       let tl = gsap.timeline();
       for (const child of Array.from(subtitle.current.children).reverse()) {
-        console.log(child);
         tl = tl.from(
           child,
           {
@@ -33,7 +32,7 @@ export default function StaggeredHiragana({ children, ...props }: StaggeredHirag
       ref={subtitle}
       style={{ writingMode: "vertical-rl", textOrientation: "upright" }}
       {...props}
-      className={`${props.className} absolute writing-mode-vertical-rl font-bold`}
+      className={`${props.className} absolute font-bold`}
     >
       {children.split("").map((char, index) => (
         <span key={index} className="inline-block">

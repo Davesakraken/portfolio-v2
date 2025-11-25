@@ -1,11 +1,5 @@
 @import "tailwindcss";
 
-@theme {
-  --breakpoint-sm: 35rem;
-  --breakpoint-md: 55rem;
-  --breakpoint-lg: 64rem;
-}
-
 /* Define dark mode variant using the Tailwind v4 syntax */
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -18,30 +12,19 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
 
-:root {
+  /* CSS Custom Properties - Light Mode */
   --text-primary: #0f172a;
-  --text-secondary: #475569;
   --bg-primary: #ffffff;
-  --bg-secondary: #f8fafc;
-  --border-color: #e2e8f0;
   --btn-bg: #f8fafc;
   --btn-hover-border: #64748b;
-  --accent-primary: #1e293b;
-  --accent-secondary: #334155;
 }
 
 .dark {
   --text-primary: #f1f5f9;
-  --text-secondary: #cbd5e1;
   --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --border-color: #334155;
   --btn-bg: #1e293b;
   --btn-hover-border: #94a3b8;
-  --accent-primary: #e2e8f0;
-  --accent-secondary: #cbd5e1;
 }
 
 body {
@@ -91,11 +74,6 @@ button:not(.theme-toggle-button):hover {
 button:not(.theme-toggle-button):focus,
 button:not(.theme-toggle-button):focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-/* Theme toggle specific styles */
-.theme-toggle-button {
-  /* Let Tailwind handle sizing, colors, and border-radius */
 }
 
 .theme-toggle-button svg {
