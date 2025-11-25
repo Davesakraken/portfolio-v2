@@ -8,12 +8,21 @@ gsap.registerPlugin(ScrollTrigger);
 
 function HomePage() {
   const title = useRef<HTMLHeadingElement>(null);
+  const img = useRef<HTMLImageElement>(null);
 
   useGSAP(() => {
     gsap.from(title.current, {
       duration: 2,
       opacity: 0,
       y: 50,
+      ease: "power3.out",
+    });
+
+    gsap.from(img.current, {
+      duration: 2,
+      delay: 0.5,
+      opacity: 0,
+      x: -200,
       ease: "power3.out",
     });
   }, []);
@@ -35,6 +44,7 @@ function HomePage() {
           </h2>
         </div>
         <img
+          ref={img}
           className="fixed left-0 bottom-0 scale-80 origin-bottom-left -z-40"
           src="/anime-character.png"
         />
