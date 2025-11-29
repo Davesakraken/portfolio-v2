@@ -49,33 +49,6 @@ a {
   font-weight: 500;
   text-decoration: inherit;
 }
-
-/* Only apply color to non-nav links */
-a:not(nav a) {
-  color: var(--text-primary);
-}
-
-button:not(.theme-toggle-button) {
-  border-radius: 8px;
-  border: 1px solid transparent;
-
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: var(--btn-bg);
-  cursor: pointer;
-  transition: border-color 0.25s, background-color 0.25s;
-}
-
-button:not(.theme-toggle-button):hover {
-  border-color: var(--btn-hover-border);
-}
-
-button:not(.theme-toggle-button):focus,
-button:not(.theme-toggle-button):focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
 .theme-toggle-button svg {
   width: 24px;
   height: 24px;
