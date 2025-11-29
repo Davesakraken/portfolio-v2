@@ -30,13 +30,13 @@ function Navbar() {
           {/* Desktop Menu - Centered */}
           <div className="hidden sm:block">
             <div className="flex items-center space-x-1 sm:space-x-2">
-              <NavLink to="/" className={getLinkClass} end>
+              <NavLink to="/" className={getLinkClass} end viewTransition>
                 Home
               </NavLink>
-              <NavLink to="/projects" className={getLinkClass}>
+              <NavLink to="/projects" className={getLinkClass} viewTransition>
                 Projects
               </NavLink>
-              <NavLink to="/contact" className={getLinkClass}>
+              <NavLink to="/contact" className={getLinkClass} viewTransition>
                 Contact
               </NavLink>
               <ThemeToggle />
@@ -92,13 +92,20 @@ function Navbar() {
         <div className="md:hidden mt-2 px-4 sm:px-0">
           <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 shadow-xl shadow-slate-900/10 dark:shadow-slate-950/30 rounded-3xl px-4 py-3 w-full">
             <div className="space-y-2 text-center">
-              <NavLink to="/" className={getMobileLinkClass} end onClick={() => setIsOpen(false)}>
+              <NavLink
+                to="/"
+                className={getMobileLinkClass}
+                end
+                onClick={() => setIsOpen(false)}
+                viewTransition
+              >
                 Home
               </NavLink>
               <NavLink
                 to="/projects"
                 className={getMobileLinkClass}
                 onClick={() => setIsOpen(false)}
+                viewTransition
               >
                 Projects
               </NavLink>
@@ -106,6 +113,7 @@ function Navbar() {
                 to="/contact"
                 className={getMobileLinkClass}
                 onClick={() => setIsOpen(false)}
+                viewTransition
               >
                 Contact
               </NavLink>
