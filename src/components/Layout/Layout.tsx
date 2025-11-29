@@ -5,7 +5,7 @@ interface LayoutProps {
 }
 
 function Layout({ children }: LayoutProps) {
-  return <div className="flex min-h-screen pt-24 sm:pt-28 outline-2">{children}</div>;
+  return <div className="flex min-h-screen pt-24 sm:pt-28">{children}</div>;
 }
 
 export default Layout;

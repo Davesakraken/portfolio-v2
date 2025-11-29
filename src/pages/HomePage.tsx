@@ -30,7 +30,7 @@ function HomePage() {
   return (
     <>
       <section className="flex justify-center items-center text-center h-full">
-        <div className="relative sm:mb-36 mb-10">
+        <div className="relative mb-36">
           <h1 ref={title} className="lg:text-[11rem] md:text-9xl sm:text-8xl text-5xl font-bold">
             <span className="sm:whitespace-nowrap">
               David Bell
@@ -45,7 +45,7 @@ function HomePage() {
         </div>
         <img
           ref={img}
-          className="fixed left-0 bottom-0 scale-80 origin-bottom-left -z-40"
+          className="fixed left-0 bottom-0 scale-80 origin-bottom-left -z-40 lg:opacity-100 opacity-40"
           src="/anime-character.png"
         />
       </section>
