@@ -29,7 +29,7 @@ function HomePage() {
 
   return (
     <>
-      <section className="flex flex-col min-h-[97dvh] justify-center items-center text-center sm:mt-6">
+      <section className="flex justify-center items-center text-center h-full">
         <div className="relative sm:mb-36 mb-10">
           <h1 ref={title} className="lg:text-[11rem] md:text-9xl sm:text-8xl text-5xl font-bold">
             <span className="sm:whitespace-nowrap">
