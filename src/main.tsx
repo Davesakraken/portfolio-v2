@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import HomePage from "./pages/HomePage";
 import ProjectsPage from "./pages/ProjectsPage";
-import ContactPage from "./pages/ContactPage";
+import ContactPage from "./pages/AboutMePage";
 import App from "./App";
 import NotFoundPage from "./pages/NotFoundPage";
 import "@fontsource-variable/jost";
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         element: <ProjectsPage />,
       },
       {
-        path: "/contact",
+        path: "/about-me",
         element: <ContactPage />,
       },
     ],

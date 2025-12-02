@@ -37,8 +37,8 @@ function Navbar() {
               <NavLink to="/projects" className={getLinkClass} viewTransition>
                 Projects
               </NavLink>
-              <NavLink to="/contact" className={getLinkClass} viewTransition>
-                Contact
+              <NavLink to="/about-me" className={getLinkClass} viewTransition>
+                About Me
               </NavLink>
               <ThemeToggle />
             </div>
