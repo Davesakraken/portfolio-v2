@@ -17,17 +17,17 @@ gsap.registerPlugin(ScrollTrigger);
 type AnimationVariant = "slide-from-corner" | "fade-scale";
 
 interface TechStackProps {
-  trigger?: React.RefObject<HTMLDivElement | null>;
+  iconClassName?: string;
   className?: string;
+  trigger?: React.RefObject<HTMLDivElement | null>;
   animation?: AnimationVariant;
-  iconSize?: string;
 }
 
 export const TechStack = ({
   trigger,
   className,
+  iconClassName,
   animation = "fade-scale",
-  iconSize = "w-6 sm:h-6",
 }: TechStackProps) => {
   const iconsRef = useRef<HTMLDivElement>(null);
 
@@ -81,13 +81,13 @@ export const TechStack = ({
 
   return (
     <div ref={iconsRef} className={`flex flex-wrap gap-2 ${className}`}>
-      <JavaScriptIcon className={iconSize} />
-      <TypeScriptIcon className={iconSize} />
-      <CssIcon className={iconSize} />
-      <ReactIcon className={iconSize} />
-      <TailwindIcon className={iconSize} />
-      <NextIcon className={iconSize} />
-      <MantineIcon className={iconSize} />
+      <JavaScriptIcon className={iconClassName} />
+      <TypeScriptIcon className={iconClassName} />
+      <CssIcon className={iconClassName} />
+      <ReactIcon className={iconClassName} />
+      <TailwindIcon className={iconClassName} />
+      <NextIcon className={iconClassName} />
+      <MantineIcon className={iconClassName} />
     </div>
   );
 };

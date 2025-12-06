@@ -1,7 +1,9 @@
+import { FloatingTechStack } from "@/components/AboutMePage/FloatingTechStack";
+
 function AboutMePage() {
   return (
     <>
-      <h1 className="">About Me</h1>
+      <FloatingTechStack />
     </>
   );
 }
