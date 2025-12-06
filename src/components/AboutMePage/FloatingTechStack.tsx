@@ -95,16 +95,17 @@ const generateIconConfigs = (): IconConfig[] => {
     const isMobile = viewportWidth < 768;
     const isTablet = viewportWidth >= 768 && viewportWidth < 1024;
 
+    // Randomize both distance AND direction (positive or negative)
     let floatDistanceX, floatDistanceY;
     if (isMobile) {
-      floatDistanceX = random(20, 50);
-      floatDistanceY = random(20, 50);
+      floatDistanceX = random(20, 50) * (Math.random() > 0.5 ? 1 : -1);
+      floatDistanceY = random(20, 50) * (Math.random() > 0.5 ? 1 : -1);
     } else if (isTablet) {
-      floatDistanceX = random(40, 70);
-      floatDistanceY = random(40, 70);
+      floatDistanceX = random(40, 70) * (Math.random() > 0.5 ? 1 : -1);
+      floatDistanceY = random(40, 70) * (Math.random() > 0.5 ? 1 : -1);
     } else {
-      floatDistanceX = random(60, 100);
-      floatDistanceY = random(60, 100);
+      floatDistanceX = random(60, 100) * (Math.random() > 0.5 ? 1 : -1);
+      floatDistanceY = random(60, 100) * (Math.random() > 0.5 ? 1 : -1);
     }
 
     return {
@@ -162,14 +163,29 @@ export const FloatingTechStack = ({ className = "" }: FloatingTechStackProps) =>
 
   // Create floating animation for an icon
   const createFloatingAnimation = (element: HTMLElement, config: IconConfig) => {
+    // Vary easing functions for more diverse movement patterns
+    const easingOptions = [
+      "power1.inOut",
+      "power2.inOut",
+      "sine.inOut",
+      "circ.inOut",
+      "expo.inOut",
+    ];
+    const randomEasing = easingOptions[Math.floor(Math.random() * easingOptions.length)];
+
+    // Random phase offset (0 to 1) to start animations at different points
+    const phaseOffset = Math.random();
+
     const tween = gsap.to(element, {
       x: `+=${config.floatDistance.x}`,
       y: `+=${config.floatDistance.y}`,
       rotation: random(-15, 15),
       duration: config.floatDuration,
-      ease: "power1.inOut",
+      ease: randomEasing,
       yoyo: true,
       repeat: -1,
+      // Start at different points in the animation cycle
+      progress: phaseOffset,
     });
 
     return tween;
@@ -186,11 +202,17 @@ export const FloatingTechStack = ({ className = "" }: FloatingTechStackProps) =>
     // Set pointer capture for smooth dragging
     element.setPointerCapture(e.pointerId);
 
+    // Immediately pause the floating animation when pointer goes down
+    const floatingAnim = floatingAnimationsMap.current.get(iconId);
+    if (floatingAnim) {
+      floatingAnim.pause();
+    }
+
     // Get current position from GSAP
     const currentX = gsap.getProperty(element, "x") as number;
     const currentY = gsap.getProperty(element, "y") as number;
 
-    // Store drag state (don't pause animation yet - only on actual movement)
+    // Store drag state
     dragStateMap.current.set(iconId, {
       isDragging: true,
       hasMoved: false,
@@ -198,6 +220,13 @@ export const FloatingTechStack = ({ className = "" }: FloatingTechStackProps) =>
       startY: e.clientY,
       elementStartX: currentX,
       elementStartY: currentY,
+    });
+
+    // Visual feedback - scale up immediately on pointer down
+    gsap.to(element, {
+      scale: 1.1,
+      duration: 0.2,
+      ease: "power2.out",
     });
   };
 
@@ -218,45 +247,20 @@ export const FloatingTechStack = ({ className = "" }: FloatingTechStackProps) =>
       return;
     }
 
-    // Mark as moved once threshold is exceeded - kill animation for clean control
+    // Mark as moved once threshold is exceeded
     if (!dragState.hasMoved) {
-      // Kill the floating animation to take full control
-      const floatingAnim = floatingAnimationsMap.current.get(iconId);
-      if (floatingAnim) {
-        floatingAnim.kill();
-      }
-
-      // Get the ACTUAL current position after killing animation
-      const currentX = gsap.getProperty(element, "x") as number;
-      const currentY = gsap.getProperty(element, "y") as number;
-
-      // Update drag state - keep original start position, update element position to current
+      // Update drag state to mark as moved
       dragStateMap.current.set(iconId, {
         ...dragState,
         hasMoved: true,
-        elementStartX: currentX,
-        elementStartY: currentY,
       });
-
-      // Visual feedback - scale up
-      gsap.to(element, {
-        scale: 1.1,
-        duration: 0.2,
-        ease: "power2.out",
-      });
-
-      // Don't exit - continue with drag calculation below using updated state
     }
 
-    // Get the current drag state (might have been updated above)
-    const currentDragState = dragStateMap.current.get(iconId);
-    if (!currentDragState) return;
-
     // Calculate new position from the original mouse start position
-    const newDeltaX = e.clientX - currentDragState.startX;
-    const newDeltaY = e.clientY - currentDragState.startY;
-    const newX = currentDragState.elementStartX + newDeltaX;
-    const newY = currentDragState.elementStartY + newDeltaY;
+    const newDeltaX = e.clientX - dragState.startX;
+    const newDeltaY = e.clientY - dragState.startY;
+    const newX = dragState.elementStartX + newDeltaX;
+    const newY = dragState.elementStartY + newDeltaY;
 
     // Clamp to viewport bounds
     const clamped = clampToViewport(newX, newY, iconSize);
@@ -284,15 +288,15 @@ export const FloatingTechStack = ({ className = "" }: FloatingTechStackProps) =>
       isDragging: false,
     });
 
-    // Only recreate animation if the icon was actually dragged
-    if (dragState.hasMoved) {
-      // Visual feedback - scale back to normal
-      gsap.to(element, {
-        scale: 1,
-        duration: 0.2,
-        ease: "power2.out",
-      });
+    // Visual feedback - scale back to normal
+    gsap.to(element, {
+      scale: 1,
+      duration: 0.2,
+      ease: "power2.out",
+    });
 
+    // If the icon was actually dragged, create a new animation from the new position
+    if (dragState.hasMoved) {
       // Kill old floating animation and create a new one from current position
       setTimeout(() => {
         const oldAnim = floatingAnimationsMap.current.get(iconId);
@@ -308,8 +312,13 @@ export const FloatingTechStack = ({ className = "" }: FloatingTechStackProps) =>
           floatingAnimationsMap.current.set(iconId, newAnim);
         }
       }, 500);
+    } else {
+      // If not moved (just clicked), resume the paused animation
+      const floatingAnim = floatingAnimationsMap.current.get(iconId);
+      if (floatingAnim) {
+        floatingAnim.resume();
+      }
     }
-    // If not moved, do nothing - animation continues uninterrupted
   };
 
   // Initialize animations
