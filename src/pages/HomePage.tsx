@@ -2,7 +2,7 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
-import StaggeredHiragana from "@/components/StaggeredHiragana";
+import StaggeredHiragana from "@/components/HomePage/StaggeredHiragana";
 
 gsap.registerPlugin(ScrollTrigger);
 

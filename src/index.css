@@ -27,6 +27,10 @@
   --btn-hover-border: #94a3b8;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   color: var(--text-primary);
   background-color: var(--bg-primary);
