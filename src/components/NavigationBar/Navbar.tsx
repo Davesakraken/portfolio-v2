@@ -2,9 +2,11 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import ThemeToggle from "@/components/ThemeToggle";
 import { MenuIcon, CloseIcon } from "@/components/icons";
+import { useScrollbarOffset } from "@/hooks";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const scrollbarOffset = useScrollbarOffset();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -25,7 +27,10 @@ function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-1/2 -translate-x-1/2 z-50 mt-4 rounded-full px-4 sm:px-0 w-[calc(100%-2rem)] sm:w-auto max-w-full">
+    <nav
+      className="fixed top-0 left-1/2 -translate-x-1/2 z-50 mt-4 rounded-full px-4 sm:px-0 w-[calc(100%-2rem)] sm:w-auto max-w-full"
+      style={{ marginLeft: `${scrollbarOffset}px` }}
+    >
       <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 shadow-xl shadow-slate-900/10 dark:shadow-slate-950/30 rounded-full px-4 sm:px-6 py-2">
         <div className="flex justify-center items-center h-12">
           {/* Desktop Menu - Centered */}
