@@ -126,11 +126,7 @@ function AboutSection() {
             className="relative rotate-2 md:rotate-3"
           >
             <div className="w-[200px] h-[250px] md:w-[280px] md:h-[350px] rounded-2xl overflow-hidden border-2 border-white/30 dark:border-white/20 shadow-2xl shadow-black/20 dark:shadow-black/40">
-              <img
-                src="/profile-placeholder.png"
-                alt="Profile"
-                className="w-full h-full object-cover"
-              />
+              <img src="/profile.webp" alt="Profile" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
