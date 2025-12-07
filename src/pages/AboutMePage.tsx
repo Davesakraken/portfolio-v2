@@ -1,7 +1,13 @@
+import { FloatingTechStack } from "@/components/AboutMePage/FloatingTechStack";
+import AboutSection from "@/components/AboutMePage/AboutSection";
+
 function AboutMePage() {
   return (
     <>
-      <h1 className="">About Me</h1>
+      <FloatingTechStack />
+      <div className="flex items-center justify-center min-h-[calc(100vh-7rem)] px-4">
+        <AboutSection />
+      </div>
     </>
   );
 }
