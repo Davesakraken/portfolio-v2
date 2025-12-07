@@ -40,7 +40,7 @@ function Navbar() {
                 Home
               </NavLink>
               <NavLink to="/projects" className={getLinkClass} viewTransition>
-                Projects
+                My Projects
               </NavLink>
               <NavLink to="/about-me" className={getLinkClass} viewTransition>
                 About Me
@@ -87,12 +87,12 @@ function Navbar() {
                 Projects
               </NavLink>
               <NavLink
-                to="/contact"
+                to="/about-me"
                 className={getMobileLinkClass}
                 onClick={() => setIsOpen(false)}
                 viewTransition
               >
-                Contact
+                About Me
               </NavLink>
             </div>
           </div>
