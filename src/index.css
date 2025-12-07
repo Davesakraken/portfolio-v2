@@ -27,9 +27,6 @@
   --btn-hover-border: #94a3b8;
 }
 
-html {
-}
-
 body {
   color: var(--text-primary);
   background-color: var(--bg-primary);

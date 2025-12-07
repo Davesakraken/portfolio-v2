@@ -102,7 +102,7 @@ function AboutSection() {
           </h2>
           <div className="space-y-4 text-base md:text-lg leading-relaxed opacity-90">
             <p ref={paragraph1Ref}>
-              Hi i'm David, a frontend developer focused on building responsive web applications. I
+              Hi, I'm David, a frontend developer focused on building responsive web applications. I
               work primarily with React and TypeScript to create functional user interfaces.
             </p>
             <p ref={paragraph2Ref}>
