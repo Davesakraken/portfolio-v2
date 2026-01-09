@@ -368,7 +368,7 @@ export const FloatingTechStack = ({ className = "" }: FloatingTechStackProps) =>
       setIconSize(newIconSize);
 
       // Re-clamp all icon positions to new viewport bounds
-      iconRefsMap.current.forEach((element, iconId) => {
+      iconRefsMap.current.forEach((element) => {
         const currentX = gsap.getProperty(element, "x") as number;
         const currentY = gsap.getProperty(element, "y") as number;
 
