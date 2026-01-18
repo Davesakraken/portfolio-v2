@@ -3,6 +3,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import StaggeredHiragana from "@/components/HomePage/StaggeredHiragana";
+import SocialBubble from "@/components/HomePage/SocialBubble";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -48,6 +49,7 @@ function HomePage() {
           className="fixed left-0 bottom-0 scale-80 origin-bottom-left -z-40 lg:opacity-100 opacity-40"
           src="/anime-character.png"
         />
+        <SocialBubble />
       </section>
     </>
   );
