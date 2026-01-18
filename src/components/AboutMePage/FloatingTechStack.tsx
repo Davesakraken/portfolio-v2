@@ -1,6 +1,5 @@
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import {
   JavaScriptIcon,
   CssIcon,
@@ -11,415 +10,107 @@ import {
   TypeScriptIcon,
 } from "../icons";
 
-interface IconConfig {
-  id: string;
-  component: React.ComponentType<{ className?: string }>;
-  initialX: number; // pixels from left
-  initialY: number; // pixels from top
-  floatDuration: number; // seconds
-  floatDistance: { x: number; y: number }; // pixels
-}
-
-interface DragState {
-  isDragging: boolean;
-  hasMoved: boolean;
-  startX: number;
-  startY: number;
-  elementStartX: number;
-  elementStartY: number;
-}
-
 interface FloatingTechStackProps {
   className?: string;
 }
 
-// Utility: Generate random number in range
 const random = (min: number, max: number) => Math.random() * (max - min) + min;
 
-// Generate icon configurations with grid-based positioning
-const generateIconConfigs = (): IconConfig[] => {
-  const icons = [
-    { id: "javascript", component: JavaScriptIcon },
-    { id: "typescript", component: TypeScriptIcon },
-    { id: "css", component: CssIcon },
-    { id: "react", component: ReactIcon },
-    { id: "tailwind", component: TailwindIcon },
-    { id: "next", component: NextIcon },
-    { id: "mantine", component: MantineIcon },
-  ];
+const icons = [
+  { id: "javascript", component: JavaScriptIcon },
+  { id: "typescript", component: TypeScriptIcon },
+  { id: "css", component: CssIcon },
+  { id: "react", component: ReactIcon },
+  { id: "tailwind", component: TailwindIcon },
+  { id: "next", component: NextIcon },
+  { id: "mantine", component: MantineIcon },
+];
 
-  // Get viewport dimensions
+const generatePosition = (index: number, total: number) => {
+  const padding = 100;
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
 
-  // Define safe zones with padding from edges
-  const padding = 100; // px from edges
-  const safeWidth = viewportWidth - padding * 2;
-  const safeHeight = viewportHeight - padding * 2;
-
-  // Create a 3x3 grid (we have 7 icons, some cells will be empty)
   const cols = 3;
-  const rows = 3;
-  const cellWidth = safeWidth / cols;
-  const cellHeight = safeHeight / rows;
+  const rows = Math.ceil(total / cols);
+  const cellWidth = (viewportWidth - padding * 2) / cols;
+  const cellHeight = (viewportHeight - padding * 2) / rows;
 
-  // Shuffle positions to avoid predictable layout
-  const positions = [
-    { col: 0, row: 0 },
-    { col: 1, row: 0 },
-    { col: 2, row: 0 },
-    { col: 0, row: 1 },
-    { col: 1, row: 1 },
-    { col: 2, row: 1 },
-    { col: 0, row: 2 },
-    { col: 1, row: 2 },
-    { col: 2, row: 2 },
-  ].sort(() => Math.random() - 0.5);
+  const col = index % cols;
+  const row = Math.floor(index / cols);
 
-  return icons.map((icon, index) => {
-    const pos = positions[index];
+  const x = padding + col * cellWidth + cellWidth / 2 + random(-cellWidth * 0.3, cellWidth * 0.3);
+  const y =
+    padding + row * cellHeight + cellHeight / 2 + random(-cellHeight * 0.3, cellHeight * 0.3);
 
-    // Calculate cell center
-    const cellCenterX = padding + pos.col * cellWidth + cellWidth / 2;
-    const cellCenterY = padding + pos.row * cellHeight + cellHeight / 2;
-
-    // Add random offset within cell (±30% of cell size)
-    const offsetRange = Math.min(cellWidth, cellHeight) * 0.3;
-    const randomOffsetX = random(-offsetRange, offsetRange);
-    const randomOffsetY = random(-offsetRange, offsetRange);
-
-    const initialX = cellCenterX + randomOffsetX;
-    const initialY = cellCenterY + randomOffsetY;
-
-    // Responsive floating distances based on viewport size
-    const isMobile = viewportWidth < 768;
-    const isTablet = viewportWidth >= 768 && viewportWidth < 1024;
-
-    // Randomize both distance AND direction (positive or negative)
-    let floatDistanceX, floatDistanceY;
-    if (isMobile) {
-      floatDistanceX = random(20, 50) * (Math.random() > 0.5 ? 1 : -1);
-      floatDistanceY = random(20, 50) * (Math.random() > 0.5 ? 1 : -1);
-    } else if (isTablet) {
-      floatDistanceX = random(40, 70) * (Math.random() > 0.5 ? 1 : -1);
-      floatDistanceY = random(40, 70) * (Math.random() > 0.5 ? 1 : -1);
-    } else {
-      floatDistanceX = random(60, 100) * (Math.random() > 0.5 ? 1 : -1);
-      floatDistanceY = random(60, 100) * (Math.random() > 0.5 ? 1 : -1);
-    }
-
-    return {
-      id: icon.id,
-      component: icon.component,
-      initialX,
-      initialY,
-      floatDuration: random(8, 15),
-      floatDistance: {
-        x: floatDistanceX,
-        y: floatDistanceY,
-      },
-    };
-  });
+  return { x, y };
 };
 
 export const FloatingTechStack = ({ className = "" }: FloatingTechStackProps) => {
-  // Generate icon configs once on mount
-  const [iconConfigs] = useState<IconConfig[]>(() => generateIconConfigs());
-
-  // Refs for DOM elements and animation state
-  const containerRef = useRef<HTMLDivElement>(null);
-  const iconRefsMap = useRef<Map<string, HTMLDivElement>>(new Map());
-  const floatingAnimationsMap = useRef<Map<string, gsap.core.Tween>>(new Map());
-  const dragStateMap = useRef<Map<string, DragState>>(new Map());
-
-  // Get responsive icon size
   const getIconSize = () => {
     const width = window.innerWidth;
-    if (width < 768) return 48; // mobile
-    if (width < 1024) return 64; // tablet
-    return 80; // desktop
+    if (width < 768) return 48;
+    if (width < 1024) return 64;
+    return 80;
   };
 
-  const [iconSize, setIconSize] = useState(getIconSize);
-
-  // Set icon ref
-  const setIconRef = (id: string, element: HTMLDivElement | null) => {
-    if (element) {
-      iconRefsMap.current.set(id, element);
-    } else {
-      iconRefsMap.current.delete(id);
-    }
-  };
-
-  // Clamp icon position to viewport bounds
-  const clampToViewport = (x: number, y: number, size: number) => {
-    const maxX = window.innerWidth - size;
-    const maxY = window.innerHeight - size;
-    return {
-      x: Math.max(0, Math.min(x, maxX)),
-      y: Math.max(0, Math.min(y, maxY)),
-    };
-  };
-
-  // Create floating animation for an icon
-  const createFloatingAnimation = (element: HTMLElement, config: IconConfig) => {
-    // Vary easing functions for more diverse movement patterns
-    const easingOptions = [
-      "power1.inOut",
-      "power2.inOut",
-      "sine.inOut",
-      "circ.inOut",
-      "expo.inOut",
-    ];
-    const randomEasing = easingOptions[Math.floor(Math.random() * easingOptions.length)];
-
-    // Random phase offset (0 to 1) to start animations at different points
-    const phaseOffset = Math.random();
-
-    const tween = gsap.to(element, {
-      x: `+=${config.floatDistance.x}`,
-      y: `+=${config.floatDistance.y}`,
-      rotation: random(-15, 15),
-      duration: config.floatDuration,
-      ease: randomEasing,
-      yoyo: true,
-      repeat: -1,
-      // Start at different points in the animation cycle
-      progress: phaseOffset,
-    });
-
-    return tween;
-  };
-
-  // Pointer event handlers for drag functionality
-  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>, iconId: string) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const element = iconRefsMap.current.get(iconId);
-    if (!element) return;
-
-    // Set pointer capture for smooth dragging
-    element.setPointerCapture(e.pointerId);
-
-    // Immediately pause the floating animation when pointer goes down
-    const floatingAnim = floatingAnimationsMap.current.get(iconId);
-    if (floatingAnim) {
-      floatingAnim.pause();
-    }
-
-    // Get current position from GSAP
-    const currentX = gsap.getProperty(element, "x") as number;
-    const currentY = gsap.getProperty(element, "y") as number;
-
-    // Store drag state
-    dragStateMap.current.set(iconId, {
-      isDragging: true,
-      hasMoved: false,
-      startX: e.clientX,
-      startY: e.clientY,
-      elementStartX: currentX,
-      elementStartY: currentY,
-    });
-
-    // Visual feedback - scale up immediately on pointer down
-    gsap.to(element, {
-      scale: 1.1,
-      duration: 0.2,
-      ease: "power2.out",
-    });
-  };
-
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>, iconId: string) => {
-    const dragState = dragStateMap.current.get(iconId);
-    if (!dragState || !dragState.isDragging) return;
-
-    const element = iconRefsMap.current.get(iconId);
-    if (!element) return;
-
-    // Calculate movement distance from start
-    const deltaX = e.clientX - dragState.startX;
-    const deltaY = e.clientY - dragState.startY;
-    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-    // Threshold: only treat as drag if moved more than 5 pixels
-    if (!dragState.hasMoved && distance < 5) {
-      return;
-    }
-
-    // Mark as moved once threshold is exceeded
-    if (!dragState.hasMoved) {
-      // Update drag state to mark as moved
-      dragStateMap.current.set(iconId, {
-        ...dragState,
-        hasMoved: true,
-      });
-    }
-
-    // Calculate new position from the original mouse start position
-    const newDeltaX = e.clientX - dragState.startX;
-    const newDeltaY = e.clientY - dragState.startY;
-    const newX = dragState.elementStartX + newDeltaX;
-    const newY = dragState.elementStartY + newDeltaY;
-
-    // Clamp to viewport bounds
-    const clamped = clampToViewport(newX, newY, iconSize);
-
-    // Directly set position - no animations during drag
-    gsap.set(element, {
-      x: clamped.x,
-      y: clamped.y,
-    });
-  };
-
-  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>, iconId: string) => {
-    const dragState = dragStateMap.current.get(iconId);
-    if (!dragState) return;
-
-    const element = iconRefsMap.current.get(iconId);
-    if (!element) return;
-
-    // Release pointer capture
-    element.releasePointerCapture(e.pointerId);
-
-    // Update drag state
-    dragStateMap.current.set(iconId, {
-      ...dragState,
-      isDragging: false,
-    });
-
-    // Visual feedback - scale back to normal
-    gsap.to(element, {
-      scale: 1,
-      duration: 0.2,
-      ease: "power2.out",
-    });
-
-    // If the icon was actually dragged, create a new animation from the new position
-    if (dragState.hasMoved) {
-      // Kill old floating animation and create a new one from current position
-      setTimeout(() => {
-        const oldAnim = floatingAnimationsMap.current.get(iconId);
-        if (oldAnim) {
-          oldAnim.kill();
-        }
-
-        // Get the icon config to use the same float parameters
-        const config = iconConfigs.find((c) => c.id === iconId);
-        if (config) {
-          // Create new floating animation from current position
-          const newAnim = createFloatingAnimation(element, config);
-          floatingAnimationsMap.current.set(iconId, newAnim);
-        }
-      }, 500);
-    } else {
-      // If not moved (just clicked), resume the paused animation
-      const floatingAnim = floatingAnimationsMap.current.get(iconId);
-      if (floatingAnim) {
-        floatingAnim.resume();
-      }
-    }
-  };
-
-  // Initialize animations
-  useGSAP(() => {
-    const iconElements = Array.from(iconRefsMap.current.entries());
-
-    // Set initial positions
-    iconElements.forEach(([id, element]) => {
-      const config = iconConfigs.find((c) => c.id === id);
-      if (!config) return;
-
-      gsap.set(element, {
-        x: config.initialX,
-        y: config.initialY,
-        opacity: 0,
-        scale: 0.3,
-      });
-    });
-
-    // Entrance animation
-    gsap.to(
-      iconElements.map(([, el]) => el),
-      {
-        opacity: 1,
-        scale: 1,
-        duration: 0.8,
-        ease: "back.out(1.7)",
-        stagger: 0.1,
-        onComplete: () => {
-          // Start floating animations after entrance
-          iconElements.forEach(([id, element]) => {
-            const config = iconConfigs.find((c) => c.id === id);
-            if (!config) return;
-
-            const floatingAnim = createFloatingAnimation(element, config);
-            floatingAnimationsMap.current.set(id, floatingAnim);
-          });
-        },
-      }
-    );
-  }, [iconConfigs]);
-
-  // Handle viewport resize
-  useEffect(() => {
-    const handleResize = () => {
-      const newIconSize = getIconSize();
-      setIconSize(newIconSize);
-
-      // Re-clamp all icon positions to new viewport bounds
-      iconRefsMap.current.forEach((element) => {
-        const currentX = gsap.getProperty(element, "x") as number;
-        const currentY = gsap.getProperty(element, "y") as number;
-
-        const clamped = clampToViewport(currentX, currentY, newIconSize);
-
-        gsap.to(element, {
-          x: clamped.x,
-          y: clamped.y,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-      });
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  // Cleanup animations on unmount
-  useEffect(() => {
-    return () => {
-      floatingAnimationsMap.current.forEach((tween) => tween.kill());
-      floatingAnimationsMap.current.clear();
-    };
-  }, []);
+  const [iconSize] = useState(getIconSize);
 
   return (
-    <div
-      ref={containerRef}
-      className={`fixed inset-0 z-[5] pointer-events-none ${className}`}
-      aria-hidden="true"
-    >
-      {iconConfigs.map((config) => {
-        const IconComponent = config.component;
+    <div className={`fixed inset-0 z-[5] pointer-events-none ${className}`} aria-hidden="true">
+      {icons.map((icon, index) => {
+        const Icon = icon.component;
+        const position = generatePosition(index, icons.length);
+        const floatX = random(60, 100) * (Math.random() > 0.5 ? 1 : -1);
+        const floatY = random(60, 100) * (Math.random() > 0.5 ? 1 : -1);
+
         return (
-          <div
-            key={config.id}
-            ref={(el) => setIconRef(config.id, el)}
-            onPointerDown={(e) => handlePointerDown(e, config.id)}
-            onPointerMove={(e) => handlePointerMove(e, config.id)}
-            onPointerUp={(e) => handlePointerUp(e, config.id)}
+          <motion.div
+            key={icon.id}
+            drag
+            dragMomentum={false}
+            dragElastic={0}
+            initial={{
+              x: position.x,
+              y: position.y,
+              opacity: 0,
+              scale: 0.3,
+            }}
+            animate={{
+              x: [position.x, position.x + floatX, position.x],
+              y: [position.y, position.y + floatY, position.y],
+              rotate: [0, random(-15, 15), 0],
+              opacity: 1,
+              scale: 1,
+            }}
+            transition={{
+              x: {
+                duration: random(8, 15),
+                repeat: Infinity,
+                ease: "easeInOut",
+              },
+              y: {
+                duration: random(8, 15),
+                repeat: Infinity,
+                ease: "easeInOut",
+              },
+              rotate: {
+                duration: random(8, 15),
+                repeat: Infinity,
+                ease: "easeInOut",
+              },
+              opacity: { duration: 0.8, delay: index * 0.1 },
+              scale: { duration: 0.8, delay: index * 0.1, ease: "backOut" },
+            }}
+            whileDrag={{ scale: 1.1, rotate: 0 }}
             className="absolute pointer-events-auto cursor-grab active:cursor-grabbing"
             style={{
-              width: `${iconSize}px`,
-              height: `${iconSize}px`,
-              touchAction: "none",
-              willChange: "transform",
+              width: iconSize,
+              height: iconSize,
             }}
           >
-            <IconComponent className="w-full h-full opacity-60" />
-          </div>
+            <Icon className="w-full h-full opacity-60" />
+          </motion.div>
         );
       })}
     </div>
