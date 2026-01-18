@@ -17,9 +17,9 @@ const socialLinks = [
 function SocialBubble() {
   return (
     <motion.div
-      className="fixed z-15 flex flex-col gap-4
+      className="fixed z-15 flex 2xl:flex-col gap-4
         bottom-6 left-1/2 -translate-x-1/2
-        lg:left-70 lg:bottom-auto lg:top-60 lg:translate-x-0"
+        2xl:left-70 2xl:bottom-auto 2xl:top-60 2xl:translate-x-0"
       initial={{ opacity: 0, scale: 0.8, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: 1, duration: 0.6, ease: "easeOut" }}
@@ -30,7 +30,7 @@ function SocialBubble() {
           href={link.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 hover:border-white/40 transition-colors"
+          className="flex items-center justify-center w-14 h-14 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 hover:border-white/40 transition-colors"
           initial={{ opacity: 0, y: 10 }}
           animate={{
             opacity: 1,
