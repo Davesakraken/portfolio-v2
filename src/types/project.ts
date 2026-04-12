@@ -5,6 +5,6 @@ export interface Project {
   image: string;
   imageAlt?: string;
   technologies: string[];
-  githubUrl: string;
+  githubUrl?: string;
   liveUrl?: string;
 }
